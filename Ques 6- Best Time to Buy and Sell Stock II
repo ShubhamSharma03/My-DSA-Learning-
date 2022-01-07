@@ -1,0 +1,47 @@
+It is a little bit  tricky question once you understand the logic then it will easy to write the code.
+
+I tried it using two approaches.
+
+1. Navie Approach: O(N) SC:O(1)
+
+    int maxProfit(vector<int>& prices) {
+        
+        int n=prices.size();
+        int buy,sell,profit=0;
+        int i=1;
+        
+        while(i<n)
+        {
+            for(buy=prices[i-1]; i<n && buy>prices[i];i++)
+                buy=prices[i];
+            if(i>=n) break;
+            for(sell=prices[i];i<n && sell<=prices[i];i++)
+                sell=prices[i];
+            
+          
+            profit+=sell-buy;
+            i++;
+        }
+        return profit;
+    }
+};
+
+
+2. Optimal Approach TC: O(N) SC: O(1)
+
+    int maxProfit(vector<int>& prices) {
+        
+        int n=prices.size();
+        int profit=0;
+        
+        for(int i=1;i<n;i++)
+        {
+            if(prices[i]>prices[i-1])
+            {
+                profit+=prices[i]-prices[i-1];
+            }
+        }
+     
+        return profit;
+    }
+};
