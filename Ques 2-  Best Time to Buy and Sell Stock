@@ -1,0 +1,54 @@
+I tried two Approcahes here 
+
+1. Brute Force       TC- O(N^2) SC-O(1)
+
+int maxProfit(vector<int>& prices) {
+        
+        int n=prices.size();
+        int min_pur=INT_MAX;
+        int max_sell=INT_MIN;
+        int max_profit=INT_MIN;
+        if(n==1) return 0;
+        
+        for(int i=0;i<n;i++)
+        {
+            min_pur=min(min_pur,prices[i]);
+            
+            for(int j=1;j<n;j++)
+            {
+                
+                max_sell=max(max_sell,prices[j]);
+            }
+        
+            int max_diff=max_sell-min_pur;
+            
+            max_profit=max(max_profit,max_diff);
+            
+        }
+        return max_profit;
+    }
+};
+
+
+2. Optimal Approach    TC- O(N) SC-O(1)
+
+   int maxProfit(vector<int>& prices) {
+        
+        int n=prices.size();
+        int min_pur=INT_MAX;
+        
+        if(n==1) return 0;
+        
+        int max_profit=INT_MIN;
+        
+        for(int i=0;i<n;i++)
+        {
+            min_pur=min(min_pur,prices[i]);
+            
+            
+            max_profit=max(max_profit,prices[i]-min_pur);
+            
+        }
+        return max_profit;
+    }
+}; 
