@@ -1,1 +1,48 @@
+TWO SUM PROBLEM 
+Two Approaches to Solve this Question.
 
+1. Brute Force
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int n=nums.size();
+        vector<int> ans;
+        int twoSum=0;
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                twoSum=nums[i]+nums[j];
+                if(twoSum==target)
+                {
+                    ans.push_back(i);
+                    ans.push_back(j);
+                }
+            }
+           
+        }
+           return ans;     
+    }
+};
+        
+2. Using HashMaps
+
+    vector<int> twoSum(vector<int>& nums, int target) {
+     int n=nums.size();
+        vector<int> ans;
+        
+        unordered_map<int,int> umap; // Hash Map Use krke Easily TC km krskte hai 
+        
+        for(int i=0;i<n;i++)
+        {
+            int numbertoFind= target-nums[i];
+            
+            if(umap.find(numbertoFind)!= umap.end())
+            {
+                ans.push_back(umap[numbertoFind]);
+                ans.push_back(i);
+                return ans;
+            }
+            umap[nums[i]]=i;
+        }
+        return ans;
+  }
+};
