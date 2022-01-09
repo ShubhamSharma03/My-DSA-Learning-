@@ -1,0 +1,26 @@
+--------I tried this ques but not get sucess after tha i saw a solution which is pretty simple 
+--------and now i have understand the logic and intution behind it.
+
+Optimised Approach: TC- O(N)
+
+ int maxArea(vector<int>& height) {
+        int n=height.size();
+        
+        int i=0;
+        int j=n-1;
+        
+        int h;
+        int water=0;
+        
+        while(i<j)
+        {
+            h=min(height[i],height[j]);
+            water=max(water, h*(j-i));
+            
+            while(i<j && height[i]<=h) i++;
+            while(i<j && height[j]<=h) j--;
+        }
+        return water;
+    }
+};
+
