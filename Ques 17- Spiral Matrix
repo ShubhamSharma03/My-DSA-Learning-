@@ -1,0 +1,58 @@
+Simple Approach make count less than total.
+
+  vector<int> spiralOrder(vector<vector<int>>& m) {
+        vector<int> ans;
+        
+        int row=m.size();
+        int col=m[0].size();
+        
+        int rowStart=0;
+        int colStart=0;
+        int rowEnd=row-1;
+        int colEnd=col-1;
+        int total =row*col;
+        int count=0;
+        
+        // left to right 
+        while(count<total)
+   {     for(int j=colStart;j<=colEnd && count<total;j++)
+        {
+            
+            ans.push_back(m[rowStart][j]);
+            count++;
+        }
+        rowStart++;
+        
+        // top to bottom 
+        
+        for(int i=rowStart;i<=rowEnd && count<total;i++)
+        {
+            
+            ans.push_back(m[i][colEnd]);
+            count++;
+        }
+        colEnd--;
+        
+        //bottom right to left
+        
+        for(int j=colEnd;j>=colStart && count<total;j--)
+        {
+        
+            ans.push_back(m[rowEnd][j]);
+            count++;
+        }
+        rowEnd--;
+        
+        //bottom to up
+        
+        for(int i=rowEnd;i>=rowStart && count<total;i--)
+        {
+            
+            ans.push_back(m[i][colStart]);
+            count++;
+        }
+        colStart++;}
+        
+        return ans;
+    }
+};
