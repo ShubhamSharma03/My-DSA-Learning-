@@ -1,0 +1,100 @@
+LeetCode Discussion is help you to where or  when we have to use Sliding Window Techiques.
+
+When to use Sliding Window?
+
+2 kinds of Sliding Window:
+
+Fixed-size sliding window(i and j move together). Clearly we are not considering fixed-size sliding window here, so I'll skip it.
+Unfixed-size sliding window(i and j move separately), more often used to find the longest substring/sub-arrays that meet some condition like: with how many distinct characters
+Why Sliding Window is not working here?
+The reason that Sliding Window cannot help us for counting the # of sub-arrays that meets some condition can be observed from below:
+For an array of size n, the number of sub-arrays is at most:
+
+C(n, 1) + C(n, 2) = n + n*(n - 1)/2
+where C(n, 1) represents the # of sub-arrays with single element and C(n, 2) represents the # of sub-arrays with size > 1.
+
+But for Sliding Window, what is the max number of sub-arrays we can find?
+Considering 2 pointers, i and j both start from 0, and each time we need to move i or j one step forward. So at most i can move n times, j can move n times. At most we can get n + n = 2n sub-arrays which is equal to n*(n - 1)/2 + n.
+
+For example: [0, 0, 0, 0], what's the number of sub-arrays with sum equals 0?
+Answer is all the sub-arrays, it should return 4 + 4*(3 - 1)/2 = 10. But with sliding window, we only get 8.
+
+
+-------------- This Question is not solved by two pointer due to above exception so i try 
+-------------- to use another approach beacuse for negative element the code is fail.
+
+1. Naive Approach
+
+TC: O(N+N) SC: O(1)
+    int subarraySum(vector<int>& nums, int k) {
+        
+        int n=nums.size();
+        int count=0;
+        int i=0;
+        int j=i+1;
+       
+       
+        while(i<n && j<n)
+        {
+            if(nums[i]+nums[j]==k || nums[i]==k || nums[j]==k)
+            {
+                count++;
+                i++;
+                j++;
+                
+            }
+            else 
+            {
+                j++;
+                i++;
+            }
+        }
+
+        return count;
+    }
+};
+
+2. Optimsed Approach Using Hash Table.
+
+    int subarraySum(vector<int>& nums, int k) {
+        
+        int n=nums.size();
+        unordered_map<int,int> preSum;
+        int count=0;
+        int sum=0;
+        
+        for(int i=0;i<n;i++)
+        {
+            sum+=nums[i];
+            
+            if(sum==k) count++;
+            
+            if(preSum.find(sum-k)!=preSum.end()) count+=preSum[sum-k];
+            
+            preSum[sum]++;
+        }
+        return count;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
