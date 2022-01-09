@@ -1,0 +1,19 @@
+I tried this Question using hashmap
+
+Optimised Approach ---- TC: O(N) SC- O(N)
+
+   int numPairsDivisibleBy60(vector<int>& time) {
+        
+        int n=time.size();
+        vector<int> v(60,0);
+        int cnt=0;
+        for(int i=0;i<n;i++)
+        {
+            int mod=time[i]%60;
+            if(mod==0) cnt+=v[0]; 
+            else cnt+=v[60-mod];
+            v[mod]++;
+        }
+        return cnt;
+    }
+};
