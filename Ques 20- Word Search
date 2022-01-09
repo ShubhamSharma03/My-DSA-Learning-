@@ -1,0 +1,48 @@
+I have completed this question using DFS.... Its similar to no of Island Problem
+
+Optimised Approach : TC- O(N^2) SC: O(1)
+
+    bool dfs(vector<vector<char>>& board, string word,int i,int j,int n)
+    {
+        int n1=board.size();
+        int m=board[0].size();
+        
+        // if all the alphabets is checked  in string
+        if(n==word.size()) return true;
+        
+        // check the edge cases
+        
+        if(i<0 || i>=n1 || j<0 || j>=m || board[i][j]!=word[n]) return false;
+        
+        //mark visited for removing repition
+        board[i][j]='0';
+        
+        //check in all four directions
+        bool status=dfs(board,word,i+1,j,n+1) || dfs(board,word,i-1,j,n+1) || dfs(board,word,i,j+1,n+1) || dfs(board,word,i,j-1,n+1) ;
+        
+        // again now restore the visited value
+        board[i][j]=word[n];
+        
+        return status;        
+                    
+    }
+    
+    bool exist(vector<vector<char>>& board, string word) {
+        if(word=="") return false;
+        
+        int n1=board.size();
+        int m=board[0].size();
+        
+        for(int i=0;i<n1;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                // Check if the first char is equal and then call dfs
+                if(board[i][j]==word[0] && dfs(board,word,i,j,0))
+                    return true;
+            }
+        }
+        return false;
+        
+    }
+};
