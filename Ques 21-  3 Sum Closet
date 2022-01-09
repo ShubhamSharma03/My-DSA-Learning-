@@ -1,0 +1,39 @@
+-------In this ques I have used two pointer approach.
+-------Fix the i value and start =i+1 and end=n-1 
+-------Firstly sort so that we can apply this two pointer approach easily.
+
+Optimised Approach: TC-O(N) SC- O(1)
+
+    int threeSumClosest(vector<int>& nums, int target) {
+        
+        int n=nums.size();
+        int diff=INT_MAX;
+        int ans=0;
+        int first,start,end;
+        sort(nums.begin(),nums.end());
+        
+        for(int i=0;i<n;i++)
+        {
+            first=nums[i];
+            start=i+1;
+            end=n-1;
+            
+            while(start<end)
+            {
+                if(first+nums[start]+nums[end]==target) return target;
+                
+                else if(abs(first+nums[start]+nums[end]-target)<diff)
+                {
+                    diff=abs(first+nums[start]+nums[end]-target);
+                    ans=first+nums[start]+nums[end];
+                }
+                if(first+nums[start]+nums[end]>target) end--;
+                else start++;
+            }
+            
+            
+        }
+        
+        return ans;
+    }
+};
