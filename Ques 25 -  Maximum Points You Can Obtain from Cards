@@ -1,0 +1,30 @@
+This Ques is little tricky and u have to analyse deeply to get into the solution of this ques.
+
+Optimised Approach: TC- O(N) SC:O(N)
+
+  int maxScore(vector<int>& cardPoints, int k) {
+        
+      
+        int n=cardPoints.size();
+        vector<int> sum(n,0);
+        
+        int total=0;
+        for(int i=0;i<n;i++)
+        {
+            total+=cardPoints[i];
+            sum[i]=total;
+        }
+        if(n==k) return total;
+        int score=0;
+        int ans=0;
+        for(int i=0;i<=k;i++)
+        {
+            int j=i+n-k-1;
+            if(i==0) ans=sum[j];
+            else ans=sum[j]-sum[i-1];
+            
+            score=max(score,total-ans);
+        }
+        return score;
+    }
+};
