@@ -1,0 +1,71 @@
+I have tried this ques using 4 approaches.
+
+1. Brute Force  -  TC: O(N^N) SC: O(N)
+
+    vector<int> findDuplicates(vector<int>& nums) {
+        
+        int n=nums.size();
+        vector<int> ans;
+       
+        for(int i=0;i<n;i++)
+        {
+            for(int j=i+1;j<n;j++)
+            {
+                if(nums[i]==nums[j])
+                {
+                    ans.push_back(nums[i]);
+                }
+                else
+                {
+                    continue;
+                }
+            }
+        }
+        return ans;
+    }
+};
+
+2. Better Approach Using HashMaps- TC:O(N)  SC:O(N)
+
+    vector<int> findDuplicates(vector<int>& nums) {
+        
+        vector<int> ans;
+        unordered_map<int,int> umap;
+        
+        for(auto i:nums)
+        {
+            umap[i]++;
+        }
+        
+        for(auto it: umap)
+        {
+            if(it.second==2)
+            {
+                ans.push_back(it.first);
+            }
+        }
+        
+        return ans;
+        
+    }
+};
+
+
+3. Optimal Approach -   TC:O(N)  SC:O(1)
+
+ vector<int> findDuplicates(vector<int>& nums) {
+        vector<int> ans;
+        int n=nums.size();
+        
+        for(int i=0;i<n;i++)
+        {
+            if(nums[abs(nums[i])-1]<0)
+            {
+                ans.push_back(abs(nums[i]));
+            }
+            nums[abs(nums[i])-1] = -1 * nums[abs(nums[i])-1];
+        }
+        return ans;
+    }
+};
+
