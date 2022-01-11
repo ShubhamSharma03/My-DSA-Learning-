@@ -1,0 +1,26 @@
+I have tried this ques only by this approach
+
+Optimised Approach TC: O(N) SC: O(N)
+
+long long int  maxDiff(vector<int> &v ,int length)
+    {
+        int n=v.size();
+        
+        sort(v.begin(),v.end());
+        int max_diff=v[0];
+        
+        for(int i=1;i<n;i++)
+        {
+          max_diff=max(max_diff,v[i]-v[i-1]);
+        } 
+        max_diff=max(max_diff,length-v.back());
+        return max_diff;
+    }
+    
+    int maxArea(int h, int w, vector<int>& horizontalCuts, vector<int>& verticalCuts) {
+        
+        long long x=maxDiff(horizontalCuts,h);
+        long long y=maxDiff(verticalCuts,w);
+        return (x*y)%1000000007;        
+    }
+};
